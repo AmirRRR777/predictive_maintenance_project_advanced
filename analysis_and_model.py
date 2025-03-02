@@ -46,7 +46,7 @@ def analysis_and_model_page():
     # 1) Инициализация ClearML Task для отслеживания эксперимента
     task = Task.init(project_name="Predictive Maintenance", task_name="Multiclass Model Training with Optuna")
     # Логируем некоторые параметры эксперимента
-    task.connect({"model": "RandomForestClassifier", "n_trials": 30})
+    task.connect({"model": "RandomForestClassifier", "n_trials": 15})
     logger = task.get_logger()
 
     # 2) Загрузка датасета через интерфейс
@@ -112,7 +112,7 @@ def analysis_and_model_page():
             return np.mean(cv_scores)
 
         study = optuna.create_study(direction='maximize')
-        study.optimize(objective, n_trials=30)
+        study.optimize(objective, n_trials=15)
 
         best_params = study.best_trial.params
         st.write("Лучшие гиперпараметры:", best_params)
@@ -178,7 +178,7 @@ def analysis_and_model_page():
 
                 st.write(f"**Предсказание (0=Нет отказа, 1=TWF, 2=HDF, 3=PWF, 4=OSF, 5=RNF)**: {prediction[0]}")
                 st.write("**Вероятности по классам:**")
-                st.write(dict(zip(np.arange(len(prediction_proba[0])), prediction_proba[0])))
+                st.write(dict(zip([int(x) for x in np.arange(len(prediction_proba[0]))], prediction_proba[0])))
 
         # Завершаем задачу ClearML после завершения эксперимента
         task.close()
