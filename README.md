@@ -39,7 +39,7 @@
 (https://archive.ics.uci.edu/dataset/601/predictive+maintenance+data
 ## Установка и запуск
 1. Клонируйте репозиторий:
-git clone <>
+git clone <https://github.com/AmirRRR777/predictive_maintenance_project_advanced.git>
 2. Установите зависимости:
 pip install -r requirements.txt
 3. Запустите приложение:
